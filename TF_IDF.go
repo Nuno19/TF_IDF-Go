@@ -171,7 +171,7 @@ func (tf_idf *TF_IDF) GetPointByIndexTF(idx int) kmeans.Point {
 }
 
 //GetAllPointsTF - gets all the points in the list
-func (tf_idf *TF_IDF) getAllPointsTF() []kmeans.Point {
+func (tf_idf *TF_IDF) GetAllPointsTF() []kmeans.Point {
 	pointArr := make([]kmeans.Point, len(tf_idf.Tf))
 	for i := range tf_idf.Tf {
 		pointArr[i] = tf_idf.GetPointByIndexTF(i)
