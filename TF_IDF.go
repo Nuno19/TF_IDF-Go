@@ -22,11 +22,16 @@ type FloatMap map[string]float64
 
 //TF_IDF - Struct for calculation TF-IDF
 type TF_IDF struct {
-	WordSet       WordSet
+	//List of words
+	SetWord WordSet
+	//Count of each word by set
 	WordCountList []WordCounts
-	Tf            []FloatMap
-	Idf           FloatMap
-	TfIdf         []FloatMap
+	//Term-Frequency
+	Tf []FloatMap
+	//Inverse Document Frequency
+	Idf FloatMap
+	//Term-Frequency Inverse Document Frequency
+	TfIdf []FloatMap
 }
 
 //Print - prints the set of words
@@ -85,7 +90,7 @@ func (tf_idf *TF_IDF) SetCount(corpus WordSet) {
 	if len(tf_idf.WordCountList) == 0 {
 		tf_idf.WordCountList = []WordCounts{}
 	}
-	tf_idf.WordCountList = append(tf_idf.WordCountList, InitCounts(tf_idf.WordSet))
+	tf_idf.WordCountList = append(tf_idf.WordCountList, InitCounts(tf_idf.SetWord))
 	idx := len(tf_idf.WordCountList) - 1
 	for _, word := range corpus {
 		tf_idf.WordCountList[idx][word]++
@@ -143,8 +148,8 @@ func (tf_idf *TF_IDF) addToWordSet(corpus []WordSet) {
 	for _, list := range corpus {
 		list = list.ToLower()
 		for _, word := range list {
-			if !tf_idf.WordSet.Exists(word) {
-				tf_idf.WordSet = append(tf_idf.WordSet, word)
+			if !tf_idf.SetWord.Exists(word) {
+				tf_idf.SetWord = append(tf_idf.SetWord, word)
 			}
 		}
 	}
@@ -152,13 +157,13 @@ func (tf_idf *TF_IDF) addToWordSet(corpus []WordSet) {
 
 //SortMap - sorts the set by key values
 func (tf_idf *TF_IDF) SortMap() {
-	sort.Strings(tf_idf.WordSet)
+	sort.Strings(tf_idf.SetWord)
 }
 
 //GetPointByIndexTF - gets tf map of the point in the indes
 func (tf_idf *TF_IDF) GetPointByIndexTF(idx int) kmeans.Point {
-	coord := make(kmeans.Point, len(tf_idf.WordSet))
-	for i, key := range tf_idf.WordSet {
+	coord := make(kmeans.Point, len(tf_idf.SetWord))
+	for i, key := range tf_idf.SetWord {
 		value := (tf_idf.Tf[idx][key])
 		coord[i] = value
 	}
@@ -176,8 +181,8 @@ func (tf_idf *TF_IDF) getAllPointsTF() []kmeans.Point {
 
 //GetPointByIndexTFIDF - gets tf map of the point in the indes
 func (tf_idf *TF_IDF) GetPointByIndexTFIDF(idx int) kmeans.Point {
-	coord := make(kmeans.Point, len(tf_idf.WordSet))
-	for i, key := range tf_idf.WordSet {
+	coord := make(kmeans.Point, len(tf_idf.SetWord))
+	for i, key := range tf_idf.SetWord {
 		value := (tf_idf.Tf[idx][key])
 		coord[i] = value
 	}
