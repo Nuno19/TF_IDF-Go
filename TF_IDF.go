@@ -144,7 +144,7 @@ func (tf_idf *TF_IDF) computeTFIDF() {
 }
 
 //AddToWordSet - adds the set to the list of sets
-func (tf_idf *TF_IDF) addToWordSet(corpus []WordSet) {
+func (tf_idf *TF_IDF) AddToWordSet(corpus []WordSet) {
 	for _, list := range corpus {
 		list = list.ToLower()
 		for _, word := range list {

@@ -188,7 +188,7 @@ func TestTF_IDF_addToWordSet(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			tt.tf_idf.addToWordSet(tt.args.corpus)
+			tt.tf_idf.AddToWordSet(tt.args.corpus)
 		})
 	}
 }
@@ -296,6 +296,24 @@ func TestTF_IDF_GetIDF(t *testing.T) {
 			if got := tt.tf_idf.GetIDF(); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("TF_IDF.GetIDF() = %v, want %v", got, tt.want)
 			}
+		})
+	}
+}
+
+func TestTF_IDF_AddToWordSet(t *testing.T) {
+	type args struct {
+		corpus []WordSet
+	}
+	tests := []struct {
+		name   string
+		tf_idf *TF_IDF
+		args   args
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			tt.tf_idf.AddToWordSet(tt.args.corpus)
 		})
 	}
 }
