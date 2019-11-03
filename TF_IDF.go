@@ -131,7 +131,7 @@ func (tf_idf *TF_IDF) ComputeIDF() {
 }
 
 //ComputeTFIDF - computes the tf-idf for the each set of words
-func (tf_idf *TF_IDF) computeTFIDF() {
+func (tf_idf *TF_IDF) ComputeTFIDF() {
 	tf_idf.TfIdf = make([]FloatMap, len(tf_idf.WordCountList))
 
 	for idx, mapIF := range tf_idf.Tf {
