@@ -317,3 +317,41 @@ func TestTF_IDF_AddToWordSet(t *testing.T) {
 		})
 	}
 }
+
+func TestTF_IDF_SetCountIdx(t *testing.T) {
+	type args struct {
+		corpus WordSet
+		idx    int
+	}
+	tests := []struct {
+		name   string
+		tf_idf *TF_IDF
+		args   args
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			tt.tf_idf.SetCountIdx(tt.args.corpus, tt.args.idx)
+		})
+	}
+}
+
+func TestTF_IDF_ComputeTFIdx(t *testing.T) {
+	type args struct {
+		corpus WordSet
+		idx    int
+	}
+	tests := []struct {
+		name   string
+		tf_idf *TF_IDF
+		args   args
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			tt.tf_idf.ComputeTFIdx(tt.args.corpus, tt.args.idx)
+		})
+	}
+}

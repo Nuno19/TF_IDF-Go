@@ -97,6 +97,19 @@ func (tf_idf *TF_IDF) SetCount(corpus WordSet) {
 	}
 }
 
+//SetCountIdx - sets the counts of words for the set in that idx
+func (tf_idf *TF_IDF) SetCountIdx(corpus WordSet, idx int) {
+	if len(tf_idf.WordCountList) == 0 {
+		tf_idf.WordCountList = []WordCounts{}
+	}
+	if len(tf_idf.WordCountList) == idx {
+		tf_idf.WordCountList = append(tf_idf.WordCountList, InitCounts(tf_idf.SetWord))
+	}
+	for _, word := range corpus {
+		tf_idf.WordCountList[idx][word]++
+	}
+}
+
 //ComputeTF - computes the term frequency for the word set
 func (tf_idf *TF_IDF) ComputeTF(corpus WordSet) {
 	idx := len(tf_idf.Tf)
@@ -104,6 +117,20 @@ func (tf_idf *TF_IDF) ComputeTF(corpus WordSet) {
 		tf_idf.Tf = []FloatMap{}
 	}
 	tf_idf.Tf = append(tf_idf.Tf, make(FloatMap))
+	for key, count := range tf_idf.WordCountList[idx] {
+		tf_idf.Tf[idx][key] = float64(count) / float64(len(corpus))
+	}
+
+}
+
+//ComputeTFIdx - computes the term frequency for the word set in that idx
+func (tf_idf *TF_IDF) ComputeTFIdx(corpus WordSet, idx int) {
+	if len(tf_idf.Tf) == 0 {
+		tf_idf.Tf = []FloatMap{}
+	}
+	if len(tf_idf.Tf) == idx {
+		tf_idf.Tf = append(tf_idf.Tf, make(FloatMap))
+	}
 	for key, count := range tf_idf.WordCountList[idx] {
 		tf_idf.Tf[idx][key] = float64(count) / float64(len(corpus))
 	}
