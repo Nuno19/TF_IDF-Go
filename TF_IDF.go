@@ -104,6 +104,8 @@ func (tf_idf *TF_IDF) SetCountIdx(corpus WordSet, idx int) {
 	}
 	if len(tf_idf.WordCountList) == idx {
 		tf_idf.WordCountList = append(tf_idf.WordCountList, InitCounts(tf_idf.SetWord))
+	} else {
+		tf_idf.WordCountList[idx] = InitCounts(tf_idf.SetWord)
 	}
 	for _, word := range corpus {
 		tf_idf.WordCountList[idx][word]++
