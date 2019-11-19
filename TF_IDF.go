@@ -212,7 +212,7 @@ func (tf_idf *TF_IDF) GetAllPointsTF() []kmeans.Point {
 func (tf_idf *TF_IDF) GetPointByIndexTFIDF(idx int) kmeans.Point {
 	coord := make(kmeans.Point, len(tf_idf.SetWord))
 	for i, key := range tf_idf.SetWord {
-		value := (tf_idf.Tf[idx][key])
+		value := (tf_idf.TfIdf[idx][key])
 		coord[i] = value
 	}
 	return coord
