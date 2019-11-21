@@ -112,6 +112,16 @@ func (tf_idf *TF_IDF) SetCountIdx(corpus WordSet, idx int) {
 	}
 }
 
+//GetSetCount - returns count of words for corresponding set
+func (tf_idf *TF_IDF) GetSetCount(corpus WordSet) WordCounts {
+
+	set := InitCounts(tf_idf.SetWord)
+	for _, word := range corpus {
+		set[word]++
+	}
+	return set
+}
+
 //ComputeTF - computes the term frequency for the word set
 func (tf_idf *TF_IDF) ComputeTF(corpus WordSet) {
 	idx := len(tf_idf.Tf)
@@ -125,18 +135,14 @@ func (tf_idf *TF_IDF) ComputeTF(corpus WordSet) {
 
 }
 
-//ComputeTFIdx - computes the term frequency for the word set in that idx
-func (tf_idf *TF_IDF) ComputeTFIdx(corpus WordSet, idx int) {
-	if len(tf_idf.Tf) == 0 {
-		tf_idf.Tf = []FloatMap{}
-	}
-	if len(tf_idf.Tf) == idx {
-		tf_idf.Tf = append(tf_idf.Tf, make(FloatMap))
-	}
-	for key, count := range tf_idf.WordCountList[idx] {
-		tf_idf.Tf[idx][key] = float64(count) / float64(len(corpus))
-	}
+//ComputeTF - computes the term frequency for the word set
+func (tf_idf *TF_IDF) getComputedTF(corpus WordSet, counts WordCounts) FloatMap {
 
+	tf := make(FloatMap)
+	for key, count := range counts {
+		tf[key] = float64(count) / float64(len(corpus))
+	}
+	return tf
 }
 
 //ComputeIDF - computes the inverse document frequency for the list of sets

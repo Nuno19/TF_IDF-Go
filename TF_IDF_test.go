@@ -129,6 +129,46 @@ func TestTF_IDF_SetCount(t *testing.T) {
 	}
 }
 
+func TestTF_IDF_SetCountIdx(t *testing.T) {
+	type args struct {
+		corpus WordSet
+		idx    int
+	}
+	tests := []struct {
+		name   string
+		tf_idf *TF_IDF
+		args   args
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			tt.tf_idf.SetCountIdx(tt.args.corpus, tt.args.idx)
+		})
+	}
+}
+
+func TestTF_IDF_GetSetCount(t *testing.T) {
+	type args struct {
+		corpus WordSet
+	}
+	tests := []struct {
+		name   string
+		tf_idf *TF_IDF
+		args   args
+		want   WordCounts
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := tt.tf_idf.GetSetCount(tt.args.corpus); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("TF_IDF.GetSetCount() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func TestTF_IDF_ComputeTF(t *testing.T) {
 	type args struct {
 		corpus WordSet
@@ -147,6 +187,28 @@ func TestTF_IDF_ComputeTF(t *testing.T) {
 	}
 }
 
+func TestTF_IDF_getComputedTF(t *testing.T) {
+	type args struct {
+		corpus WordSet
+		counts WordCounts
+	}
+	tests := []struct {
+		name   string
+		tf_idf *TF_IDF
+		args   args
+		want   FloatMap
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := tt.tf_idf.getComputedTF(tt.args.corpus, tt.args.counts); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("TF_IDF.getComputedTF() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func TestTF_IDF_ComputeIDF(t *testing.T) {
 	tests := []struct {
 		name   string
@@ -161,7 +223,7 @@ func TestTF_IDF_ComputeIDF(t *testing.T) {
 	}
 }
 
-func TestTF_IDF_computeTFIDF(t *testing.T) {
+func TestTF_IDF_ComputeTFIDF(t *testing.T) {
 	tests := []struct {
 		name   string
 		tf_idf *TF_IDF
@@ -175,7 +237,7 @@ func TestTF_IDF_computeTFIDF(t *testing.T) {
 	}
 }
 
-func TestTF_IDF_addToWordSet(t *testing.T) {
+func TestTF_IDF_AddToWordSet(t *testing.T) {
 	type args struct {
 		corpus []WordSet
 	}
@@ -228,7 +290,7 @@ func TestTF_IDF_GetPointByIndexTF(t *testing.T) {
 	}
 }
 
-func TestTF_IDF_getAllPointsTF(t *testing.T) {
+func TestTF_IDF_GetAllPointsTF(t *testing.T) {
 	tests := []struct {
 		name   string
 		tf_idf *TF_IDF
@@ -239,7 +301,7 @@ func TestTF_IDF_getAllPointsTF(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := tt.tf_idf.GetAllPointsTF(); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("TF_IDF.getAllPointsTF() = %v, want %v", got, tt.want)
+				t.Errorf("TF_IDF.GetAllPointsTF() = %v, want %v", got, tt.want)
 			}
 		})
 	}
@@ -296,62 +358,6 @@ func TestTF_IDF_GetIDF(t *testing.T) {
 			if got := tt.tf_idf.GetIDF(); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("TF_IDF.GetIDF() = %v, want %v", got, tt.want)
 			}
-		})
-	}
-}
-
-func TestTF_IDF_AddToWordSet(t *testing.T) {
-	type args struct {
-		corpus []WordSet
-	}
-	tests := []struct {
-		name   string
-		tf_idf *TF_IDF
-		args   args
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			tt.tf_idf.AddToWordSet(tt.args.corpus)
-		})
-	}
-}
-
-func TestTF_IDF_ComputeTFIdx(t *testing.T) {
-	type args struct {
-		corpus WordSet
-		idx    int
-	}
-	tests := []struct {
-		name   string
-		tf_idf *TF_IDF
-		args   args
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			tt.tf_idf.ComputeTFIdx(tt.args.corpus, tt.args.idx)
-		})
-	}
-}
-
-func TestTF_IDF_SetCountIdx(t *testing.T) {
-	type args struct {
-		corpus WordSet
-		idx    int
-	}
-	tests := []struct {
-		name   string
-		tf_idf *TF_IDF
-		args   args
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			tt.tf_idf.SetCountIdx(tt.args.corpus, tt.args.idx)
 		})
 	}
 }
