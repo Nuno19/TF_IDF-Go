@@ -187,7 +187,7 @@ func TestTF_IDF_ComputeTF(t *testing.T) {
 	}
 }
 
-func TestTF_IDF_getComputedTF(t *testing.T) {
+func TestTF_IDF_GetComputedTF(t *testing.T) {
 	type args struct {
 		corpus WordSet
 		counts WordCounts
@@ -202,7 +202,7 @@ func TestTF_IDF_getComputedTF(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := tt.tf_idf.getComputedTF(tt.args.corpus, tt.args.counts); !reflect.DeepEqual(got, tt.want) {
+			if got := tt.tf_idf.GetComputedTF(tt.args.corpus, tt.args.counts); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("TF_IDF.getComputedTF() = %v, want %v", got, tt.want)
 			}
 		})

@@ -136,7 +136,7 @@ func (tf_idf *TF_IDF) ComputeTF(corpus WordSet) {
 }
 
 //ComputeTF - computes the term frequency for the word set
-func (tf_idf *TF_IDF) getComputedTF(corpus WordSet, counts WordCounts) FloatMap {
+func (tf_idf *TF_IDF) GetComputedTF(corpus WordSet, counts WordCounts) FloatMap {
 
 	tf := make(FloatMap)
 	for key, count := range counts {
