@@ -203,7 +203,50 @@ func TestTF_IDF_GetComputedTF(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := tt.tf_idf.GetComputedTF(tt.args.corpus, tt.args.counts); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("TF_IDF.getComputedTF() = %v, want %v", got, tt.want)
+				t.Errorf("TF_IDF.GetComputedTF() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestTF_IDF_GetComputedIDF(t *testing.T) {
+	type args struct {
+		countMap WordCounts
+	}
+	tests := []struct {
+		name   string
+		tf_idf *TF_IDF
+		args   args
+		want   FloatMap
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := tt.tf_idf.GetComputedIDF(tt.args.countMap); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("TF_IDF.GetComputedIDF() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestTF_IDF_GetComputedTFIDF(t *testing.T) {
+	type args struct {
+		tf  FloatMap
+		idf FloatMap
+	}
+	tests := []struct {
+		name   string
+		tf_idf *TF_IDF
+		args   args
+		want   FloatMap
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := tt.tf_idf.GetComputedTFIDF(tt.args.tf, tt.args.idf); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("TF_IDF.GetComputedTFIDF() = %v, want %v", got, tt.want)
 			}
 		})
 	}

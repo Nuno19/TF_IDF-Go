@@ -115,7 +115,7 @@ func (tf_idf *TF_IDF) SetCountIdx(corpus WordSet, idx int) {
 //GetSetCount - returns count of words for corresponding set
 func (tf_idf *TF_IDF) GetSetCount(corpus WordSet) WordCounts {
 
-	set := InitCounts(tf_idf.SetWord)
+	set := make(WordCounts)
 	for _, word := range corpus {
 		set[word]++
 	}
@@ -135,14 +135,49 @@ func (tf_idf *TF_IDF) ComputeTF(corpus WordSet) {
 
 }
 
-//ComputeTF - computes the term frequency for the word set
+//GetComputedTF - computes the term frequency for the word set
 func (tf_idf *TF_IDF) GetComputedTF(corpus WordSet, counts WordCounts) FloatMap {
 
 	tf := make(FloatMap)
 	for key, count := range counts {
-		tf[key] = float64(count) / float64(len(corpus))
+		tf[key] = float64(count) / float64(len(counts))
 	}
 	return tf
+}
+
+//GetComputedIDF - computes the inverse document frequency for the list of sets
+func (tf_idf *TF_IDF) GetComputedIDF(countMap WordCounts) FloatMap {
+	n := len(tf_idf.WordCountList)
+
+	idf := make(FloatMap)
+	for _, list := range tf_idf.WordCountList {
+
+		for key, count := range list {
+			if count > 0 {
+				idf[key]++
+			}
+		}
+	}
+	for key, count := range countMap {
+		if count > 0 {
+			idf[key]++
+		}
+	}
+
+	for key, count := range idf {
+		idf[key] = math.Log(float64(n) / float64(count))
+	}
+	return idf
+}
+
+//GetComputedTFIDF - computes the tf-idf for the each set of words
+func (tf_idf *TF_IDF) GetComputedTFIDF(tf FloatMap, idf FloatMap) FloatMap {
+	TfIdf := make(FloatMap)
+
+	for key, val := range tf {
+		TfIdf[key] = val * idf[key]
+	}
+	return TfIdf
 }
 
 //ComputeIDF - computes the inverse document frequency for the list of sets
@@ -214,7 +249,7 @@ func (tf_idf *TF_IDF) GetAllPointsTF() []kmeans.Point {
 	return pointArr
 }
 
-//GetPointByIndexTFIDF - gets tf map of the point in the indes
+//GetPointByIndexTFIDF - gets tfIdf map of the point in the index
 func (tf_idf *TF_IDF) GetPointByIndexTFIDF(idx int) kmeans.Point {
 	coord := make(kmeans.Point, len(tf_idf.SetWord))
 	for i, key := range tf_idf.SetWord {
@@ -226,8 +261,9 @@ func (tf_idf *TF_IDF) GetPointByIndexTFIDF(idx int) kmeans.Point {
 
 //GetAllPointsTFIDF - gets all the points in the list
 func (tf_idf *TF_IDF) GetAllPointsTFIDF() []kmeans.Point {
+
 	pointArr := make([]kmeans.Point, len(tf_idf.Tf))
-	for i := range tf_idf.Tf {
+	for i := range tf_idf.TfIdf {
 		pointArr[i] = tf_idf.GetPointByIndexTFIDF(i)
 	}
 	return pointArr
